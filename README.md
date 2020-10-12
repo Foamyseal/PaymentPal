@@ -1,11 +1,18 @@
-# My Personal Project
+# Simple Banking Application 
 
-## A subtitle
+## Purpose
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+The purpose of this application is to allow for a banking system to be used in games between friends. 
+For example, instead of using real money and your actual bank account, this simulated banking system could be used to 
+make bets without actually any losing money in real life. 
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+This project is of interest to me as online games rising in popularity due to COVID, 
+I wanted to create a minigame on top of existing games where people could bet virtual money (eg. "I bet you 500 credits 
+that you won't win this game") to foster social connections without the implications of losing actual money.
+
+
+
+
+
+
+
