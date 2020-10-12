@@ -11,6 +11,11 @@ I wanted to create a minigame on top of existing games where people could bet vi
 that you won't win this game") to foster social connections without the implications of losing actual money.
 
 
+## User Stories 
+- As a user, I want to be able to deposit credits to my bank account. 
+- As a user, I want to be able to withdraw credits to my bank account. 
+- As a user, I want to be able to see the amount of credits currently in my account. 
+- As a user, I want to see a list of previous transactions I've made. 
 
 
 
