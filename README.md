@@ -7,17 +7,27 @@ For example, instead of using real money and your actual bank account, this simu
 make bets without actually any losing money in real life. 
 
 This project is of interest to me as online games rising in popularity due to COVID, 
-I wanted to create a minigame on top of existing games where people could bet virtual money (eg. "I bet you 500 credits 
+I wanted to create a mini-game on top of existing games where people could bet virtual money (eg. "I bet you 500 credits 
 that you won't win this game") to foster social connections without the implications of losing actual money.
 
 
-## User Stories 
+## User Stories (Phase 1)
 - As a user, I want to be able to deposit credits to my bank account. 
 - As a user, I want to be able to withdraw credits to my bank account. 
 - As a user, I want to be able to see the amount of credits currently in my account. 
 - As a user, I want to see a list of previous transactions I've made. 
 
+## Upcoming User Stories
+- As a user, I want to create my own bank account
+- As a user, I want to set the name of my bank account
+- As a user, I want to set a password for my bank account
+- As a user, I want to login to my bank account with my password
+- As a user, I want to transfer (add money) to other people's bank account using this bank account system
 
+
+*Additional Information*: 
+
+https://www.notion.so/CPSC-210-969721fcc7f74254a991a98187595284
 
 
 

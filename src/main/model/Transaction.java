@@ -47,4 +47,10 @@ public class Transaction {
     public String getTransactionType() {
         return transactionType;
     }
+
+    @Override
+    public String toString() {
+        return "|Transaction Id: " + this.getTransactionId() + " Amount: " + this.getTransactionAmount() + " Type: "
+                + this.getTransactionType() + "|";
+    }
 }

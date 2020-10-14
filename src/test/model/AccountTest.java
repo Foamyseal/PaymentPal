@@ -43,6 +43,12 @@ public class AccountTest {
     }
 
     @Test
+    void testWithdrawalFailure(){
+        account4.withdraw(100000);
+        assertEquals(100, account4.getBalance());
+    }
+
+    @Test
     void testConsecutiveDeposits(){
         account3.deposit(10);
         assertEquals(1011, account3.getBalance());

@@ -5,10 +5,10 @@ import model.Transaction;
 
 import java.util.Scanner;
 
+// UI based on TellerApp
 public class Bank {
     private Scanner input;
     private Account acc1;
-    private Transaction t1;
 
 
     public Bank() {
@@ -43,7 +43,7 @@ public class Bank {
         } else if (command.equals("w")) {
             doWithdrawal();
         } else if (command.equals("t")) {
-//            doTransactionHistory();
+            printTransactionHistory(acc1);
         } else if (command.equals("c")) {
             printBalance(acc1);
         } else {
@@ -75,16 +75,16 @@ public class Bank {
         int amount = input.nextInt();
 
         if (amount >= 0) {
+            Transaction t = new Transaction();
             acc1.deposit(amount);
-            t1.setTransactionAmount(amount);
-            t1.setTransactionType("Deposit");
-            t1.setTransactionId("D1");
-//            acc1.addTransaction();
+            acc1.addTransaction(t);
+            t.setTransactionAmount(amount);
+            t.setTransactionType("Deposit");
+            t.setTransactionId("D112934");
+            System.out.println("Success!");
         } else {
-            System.out.println("Cannot deposit negative amount...\n");
+            System.out.println("Deposit Amount Invalid, please enter a positive value\n");
         }
-
-        printBalance(acc1);
     }
 
     // MODIFIES: this
@@ -97,22 +97,26 @@ public class Bank {
             System.out.println("Cannot withdraw negative amount...\n");
         } else if (acc1.getBalance() < amount) {
             System.out.println("Insufficient balance on account...\n");
+            printBalance(acc1);
         } else {
+            Transaction t = new Transaction();
             acc1.withdraw(amount);
-            t1.setTransactionType("Withdraw");
-            t1.setTransactionId("T1");
-//            acc1.addTransaction();
+            acc1.addTransaction(t);
+            t.setTransactionAmount(amount);
+            t.setTransactionType("Withdraw");
+            t.setTransactionId("TW123");
+            System.out.println("Success!");
         }
-
-        printBalance(acc1);
     }
 
     // EFFECTS: prints balance of account to the screen
     private void printBalance(Account selected) {
-        System.out.printf("Balance: $%.2f\n", acc1.getBalance());
+        System.out.println(acc1.getBalance());
     }
 
+
+    //EFFECTS: prints transaction history to the screen.
     private void printTransactionHistory(Account selected) {
-        System.out.printf("Transaction", acc1.getTransactionHistory());
+        System.out.println(acc1.getTransactionHistory());
     }
 }
