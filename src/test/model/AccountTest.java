@@ -22,13 +22,11 @@ public class AccountTest {
     void testAccountConstructor(){
         assertEquals("Martin", account1.getUserName());
         assertEquals(1, account1.getBalance());
-
-
-        assertEquals("Martin", account1.getUserName());
-        assertEquals(1000, account1.getBalance());
+        assertEquals("A234BCD", account1.getAccountID());
 
         assertEquals("Charlie", account3.getUserName());
         assertEquals(1001, account3.getBalance());
+        assertEquals("A234BCD", account3.getAccountID());
     }
 
     @Test
@@ -61,6 +59,11 @@ public class AccountTest {
         assertEquals(25, account1.getBalance());
         account1.withdraw(1);
         assertEquals(24, account1.getBalance());
+    }
+
+    @Test
+    void testAddTransaction() {
+        //stub
     }
 }
 

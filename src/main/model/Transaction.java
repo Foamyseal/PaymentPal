@@ -1,35 +1,32 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Transaction {
 
-    private int transactionID;
-    private String name;
-    private int amount;
+    private String transactionId;
+    private int transactionAmount;
     private String transactionType;
 
 
-    public Transaction (String transactionName, int transactionAmount, String transactionType) {
-
-        this.name = transactionName;
-        amount = transactionAmount;
-        type = transactionType;
-
+    public Transaction(int amount, String type) {
+        this.transactionId = "A234BCD";
+        this.transactionAmount = amount;
+        this.transactionType = type;
     }
 
 
-    public int deposit(int amount) {
-//        balance = balance + amount;
+    public int getTransactionId() {
         return 0;
     }
 
-    public int withdraw (int amount) {
-//        balance = getBalance() - amount;
+    public String getTransactionType() {
+        return "";
+    }
+
+
+    public int getTransactionAmount() {
         return 0;
     }
-
-    public void transactionHistory() {
-        //stub
-    }
-
-
 }

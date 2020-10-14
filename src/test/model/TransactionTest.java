@@ -9,47 +9,31 @@ public class TransactionTest {
 
     private Transaction transaction1;
     private Transaction transaction2;
-    private Transaction transaction3;
 
     @BeforeEach
     void runBefore() {
-        transaction1 = new Transaction("Martin", 1);
-        transaction2 = new Transaction();
-        transaction3 = new Transaction();
+        transaction1 = new Transaction(100, "Deposit");
+        transaction2 = new Transaction(100, "Withdrawal");
     }
 
     @Test
     void testTransactionConstructor(){
-        assertEquals("Martin", transaction1.getTransactionName());
         assertEquals(1, transaction1.getTransactionAmount());
-        assertEquals(0, transaction1.getTransactionId());
+        assertEquals("A234BCD", transaction1.getTransactionId());
         assertEquals("Deposit", transaction1.getTransactionType());
+        assertEquals(100, transaction2.getTransactionAmount());
+        assertEquals("A234BCD", transaction2.getTransactionId());
+        assertEquals("Withdrawal", transaction2.getTransactionType());
     }
 
     @Test
     void testReturnTransaction(){
-        assertEquals(transaction1, transaction1);
-        assertEquals(new Transaction("Martin", 1), transaction1);
-
+        //stub
     }
 
     @Test
     void testReturnMultipleTransactions(){
-
-    }
-
-    @Test
-    void testSingleWithdrawal(){
-
-    }
-0
-    @Test
-    void testConsecutiveWithdrawals(){
-
-    }
-
-    @Test
-    void testDepositWithdrawal(){
+        //stub
 
     }
 
