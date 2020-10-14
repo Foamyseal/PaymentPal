@@ -1,16 +1,18 @@
 package model;
 
 
-// an account with name of user, current balance, and account ID.
+import java.util.ArrayList;
+
+// an account with name of user, current balance, account ID and transactions
 public class Account {
     private String accountID;
     private String userName;
     private int balance;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
 
-    private Transaction transaction;
 
     public Account(String name, int initialBalance) {
-        this.userName = userName;
+        this.userName = name;
         this.balance = initialBalance;
         this.accountID = "A1BM1412";
     }
@@ -20,25 +22,28 @@ public class Account {
     }
 
     public String getUserName() {
-        return "";
+        return userName;
     }
 
     public int getBalance() {
-        return 0;
+        return balance;
     }
 
     public int deposit(int amount) {
-        //set withdrawal type to be "Deposit"
-        return 0;
+        balance = getBalance() + amount;
+        return balance;
     }
 
     public int withdraw(int amount) {
-        //set withdrawal type to be "Withdrawal"
-        return 0;
+        balance = getBalance() - amount;
+        return balance;
     }
 
-    private void logTransactions(){
-
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
     }
 
+    public ArrayList<Transaction> getTransactionHistory() {
+        return transactions;
+    }
 }
