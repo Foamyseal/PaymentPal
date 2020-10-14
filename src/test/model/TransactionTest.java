@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TransactionTest {
 
@@ -39,6 +39,19 @@ public class TransactionTest {
         transaction2.setTransactionType("Withdrawal");
         assertEquals("Withdrawal", transaction2.getTransactionType());
 
+    }
+
+    @Test
+    void testTransactionToString(){
+        transaction1.setTransactionId("D1");
+        transaction1.setTransactionType("Deposit");
+        transaction1.setTransactionAmount(100);
+        assertTrue(transaction1.toString().contains("|Transaction Id: D1 Amount: 100 Type: Deposit|"));
+    }
+
+    @Test
+    void testSetTransactionToString(){
+        assertTrue(transaction1.toString().contains("|Transaction Id:  Amount: 0 Type: unknown|"));
     }
 
 }
