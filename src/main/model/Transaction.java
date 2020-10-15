@@ -1,6 +1,6 @@
 package model;
 
-
+// a transaction that contains transaction ID, amount, and type of transaction
 public class Transaction {
 
     private String transactionId;
@@ -30,24 +30,26 @@ public class Transaction {
 
     // MODIFIES: this
     // EFFECTS: set transaction type
-
     public void setTransactionType(String type) {
         this.transactionType = type;
     }
 
-    // EFFECTS: return transactionId
+    // EFFECTS: return transaction Id
     public String getTransactionId() {
         return transactionId;
     }
 
+    // EFFECTS: return transaction amount
     public int getTransactionAmount() {
         return transactionAmount;
     }
 
+    //EFFECTS: return transaction type
     public String getTransactionType() {
         return transactionType;
     }
 
+    //EFFECTS: turns transaction to string
     @Override
     public String toString() {
         return "|Transaction Id: " + this.getTransactionId() + " Amount: " + this.getTransactionAmount() + " Type: "

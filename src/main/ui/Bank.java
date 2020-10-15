@@ -32,7 +32,7 @@ public class Bank {
                 processCommand(command);
             }
         }
-        System.out.println("\nGoodbye!");
+        System.out.println("\nPeace out :)");
     }
 
     // MODIFIES: this
@@ -47,14 +47,14 @@ public class Bank {
         } else if (command.equals("c")) {
             printBalance(acc1);
         } else {
-            System.out.println("Selection not valid...");
+            System.out.println("Invalid Selection");
         }
     }
 
     // MODIFIES: this
     // EFFECTS: initializes accounts
     private void init() {
-        acc1 = new Account("Martin", 145);
+        acc1 = new Account("Martin", 0);
         input = new Scanner(System.in);
     }
 
@@ -94,9 +94,9 @@ public class Bank {
         int amount = input.nextInt();
 
         if (amount < 0) {
-            System.out.println("Cannot withdraw negative amount...\n");
+            System.out.println("Please enter a positive withdrawal amount\n");
         } else if (acc1.getBalance() < amount) {
-            System.out.println("Insufficient balance on account...\n");
+            System.out.println("Insufficient balance on account to perform withdrawal\n");
             printBalance(acc1);
         } else {
             Transaction t = new Transaction();

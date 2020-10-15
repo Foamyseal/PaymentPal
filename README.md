@@ -1,4 +1,4 @@
-# Simple Banking Application 
+# PaymentPal
 
 ## Purpose
 

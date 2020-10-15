@@ -11,7 +11,7 @@ public class Account {
     private int balance;
     private ArrayList<Transaction> transactions = new ArrayList<>();
 
-
+    //initialize Account
     public Account(String name, int initialBalance) {
         this.userName = name;
         this.balance = initialBalance;
@@ -19,14 +19,19 @@ public class Account {
         this.accountID = "A1BM1412";
     }
 
+    //implement in UI in phase 2 to return account details
+
+    //EFFECTS: get account ID
     public String getAccountID() {
         return accountID;
     }
 
+    //EFFECTS: get account user name
     public String getUserName() {
         return userName;
     }
 
+    //EFFECTS get account balance
     public int getBalance() {
         return balance;
     }
