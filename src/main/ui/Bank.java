@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-// UI based on TellerApp
+// UI based on TellerApp and JsonSerializationDemo
 public class Bank {
     private static final String JSON_STORE = "./data/account.json";
     private Scanner input;

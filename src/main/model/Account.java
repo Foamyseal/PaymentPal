@@ -69,7 +69,6 @@ public class Account implements Writeable {
         return transactions;
     }
 
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -80,7 +79,7 @@ public class Account implements Writeable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns transactions in this account as a JSON array
     private JSONArray transactionsToJson() {
         JSONArray jsonArray = new JSONArray();
 

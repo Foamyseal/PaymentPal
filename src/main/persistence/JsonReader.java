@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+//based on JsonReader from JsonSerializationDemo
+
 public class JsonReader {
     private String source;
 
@@ -35,7 +37,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses account from JSON object and returns it
     private Account parseAccount(JSONObject jsonObject) {
         String accountName = jsonObject.getString("name");
         int accountBalance = jsonObject.getInt("balance");
@@ -45,7 +47,7 @@ public class JsonReader {
     }
 
     // MODIFIES: a
-    // EFFECTS: parses transactions from JSON object and adds them to workroom
+    // EFFECTS: parses transactions from JSON object and adds them to account
     private void addTransactions(Account a, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("transactions");
         for (Object json : jsonArray) {
@@ -54,8 +56,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: a
+    // EFFECTS: parses transactions from JSON object and adds it to account
     private void addTransaction(Account a, JSONObject jsonObject) {
         String id = jsonObject.getString("id");
         int amount = jsonObject.getInt("amount");
