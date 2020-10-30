@@ -12,8 +12,8 @@ public class TransactionTest {
 
     @BeforeEach
     void runBefore() {
-        transaction1 = new Transaction();
-        transaction2 = new Transaction();
+        transaction1 = new Transaction("1", 100, "Deposit");
+        transaction2 = new Transaction("2", 200, "Withdrawal");
     }
 
     @Test
@@ -47,11 +47,6 @@ public class TransactionTest {
         transaction1.setTransactionType("Deposit");
         transaction1.setTransactionAmount(100);
         assertTrue(transaction1.toString().contains("|Transaction Id: D1 Amount: 100 Type: Deposit|"));
-    }
-
-    @Test
-    void testSetTransactionToString(){
-        assertTrue(transaction1.toString().contains("|Transaction Id:  Amount: 0 Type: unknown|"));
     }
 
 }

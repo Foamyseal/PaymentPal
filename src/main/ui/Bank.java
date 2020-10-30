@@ -2,19 +2,28 @@ package ui;
 
 import model.Account;
 import model.Transaction;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // UI based on TellerApp
 public class Bank {
+    private static final String JSON_STORE = "./data/account.json";
     private Scanner input;
-    private Account acc1;
+    private Account account;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
-    public Bank() {
+    // Run Bank
+    public Bank() throws FileNotFoundException {
         runBank();
     }
 
+    //Constructor comment:
     private void runBank() {
         boolean keepGoing = true;
         String command = null;
@@ -43,9 +52,13 @@ public class Bank {
         } else if (command.equals("w")) {
             doWithdrawal();
         } else if (command.equals("t")) {
-            printTransactionHistory(acc1);
+            printTransactionHistory(account);
         } else if (command.equals("c")) {
-            printBalance(acc1);
+            printBalance(account);
+        } else if (command.equals("s")) {
+            saveAccount();
+        } else if (command.equals("l")) {
+            loadAccount();
         } else {
             System.out.println("Invalid Selection");
         }
@@ -54,8 +67,10 @@ public class Bank {
     // MODIFIES: this
     // EFFECTS: initializes accounts
     private void init() {
-        acc1 = new Account("Martin", 0);
+        account = new Account("Martin", 0);
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays menu of options to user
@@ -65,6 +80,8 @@ public class Bank {
         System.out.println("\td -> deposit credits");
         System.out.println("\tw -> withdraw credits");
         System.out.println("\tt -> transaction history");
+        System.out.println("\ts -> save account to file");
+        System.out.println("\tl -> load account from file");
         System.out.println("\tq -> quit");
     }
 
@@ -75,9 +92,9 @@ public class Bank {
         int amount = input.nextInt();
 
         if (amount >= 0) {
-            Transaction t = new Transaction();
-            acc1.deposit(amount);
-            acc1.addTransaction(t);
+            Transaction t = new Transaction("", 0, "");
+            account.deposit(amount);
+            account.addTransaction(t);
             t.setTransactionAmount(amount);
             t.setTransactionType("Deposit");
             t.setTransactionId("D112934");
@@ -95,13 +112,13 @@ public class Bank {
 
         if (amount < 0) {
             System.out.println("Please enter a positive withdrawal amount\n");
-        } else if (acc1.getBalance() < amount) {
+        } else if (account.getBalance() < amount) {
             System.out.println("Insufficient balance on account to perform withdrawal\n");
-            printBalance(acc1);
+            printBalance(account);
         } else {
-            Transaction t = new Transaction();
-            acc1.withdraw(amount);
-            acc1.addTransaction(t);
+            Transaction t = new Transaction("", 0, "");
+            account.withdraw(amount);
+            account.addTransaction(t);
             t.setTransactionAmount(amount);
             t.setTransactionType("Withdraw");
             t.setTransactionId("TW123");
@@ -111,12 +128,36 @@ public class Bank {
 
     // EFFECTS: prints balance of account to the screen
     private void printBalance(Account selected) {
-        System.out.println(acc1.getBalance());
+        System.out.println(account.getBalance());
     }
 
 
     //EFFECTS: prints transaction history to the screen.
     private void printTransactionHistory(Account selected) {
-        System.out.println(acc1.getTransactionHistory());
+        System.out.println(account.getTransactionHistory());
+    }
+
+
+    // EFFECTS: saves the account to file
+    private void saveAccount() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(account);
+            jsonWriter.close();
+            System.out.println("Saved " + account.getUserName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads account from file
+    private void loadAccount() {
+        try {
+            account = jsonReader.read();
+            System.out.println("Loaded " + account.getUserName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

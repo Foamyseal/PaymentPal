@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writeable;
+
 // a transaction that contains transaction ID, amount, and type of transaction
-public class Transaction {
+public class Transaction implements Writeable  {
 
     private String transactionId;
     private int transactionAmount;
@@ -10,10 +13,10 @@ public class Transaction {
 
     // MODIFIES: this
     // EFFECTS: creates new transaction
-    public Transaction() {
-        transactionId = "";
-        transactionAmount = 0;
-        transactionType = "unknown";
+    public Transaction(String id, int amount, String type) {
+        transactionId = id;
+        transactionAmount = amount;
+        transactionType = type;
     }
 
     // MODIFIES: this
@@ -54,5 +57,16 @@ public class Transaction {
     public String toString() {
         return "|Transaction Id: " + this.getTransactionId() + " Amount: " + this.getTransactionAmount() + " Type: "
                 + this.getTransactionType() + "|";
+    }
+
+    //from JsonSerializationDemo
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", transactionId);
+        json.put("type", transactionType);
+        json.put("amount", transactionAmount);
+        return json;
     }
 }

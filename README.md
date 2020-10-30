@@ -17,6 +17,10 @@ that you won't win this game") to foster social connections without the implicat
 - As a user, I want to be able to see the amount of credits currently in my account. 
 - As a user, I want to see a list of previous transactions I've made. 
 
+## User Stories (Phase 2)
+- As a user, I want to be able to save the amount of balance in my bank account. 
+- As a user, I want to be able to load my bank account with previous transactions and balance. 
+
 ## Upcoming User Stories
 - As a user, I want to create my own bank account
 - As a user, I want to set the name of my bank account

@@ -69,7 +69,7 @@ public class AccountTest {
 
     @Test
     void testAddSingleTransaction() {
-        Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction("", 0, "");
         account2.addTransaction(transaction);
         ArrayList<Transaction> testSingleTransaction = new ArrayList<>();
         testSingleTransaction.add(transaction);
@@ -79,9 +79,9 @@ public class AccountTest {
 
     @Test
     void testAddMultipleTransactions() {
-        Transaction transaction1 = new Transaction();
-        Transaction transaction2 = new Transaction();
-        Transaction transaction3 = new Transaction();
+        Transaction transaction1 = new Transaction("", 0, "");
+        Transaction transaction2 = new Transaction("", 0, "");
+        Transaction transaction3 = new Transaction("", 0, "");
         account1.addTransaction(transaction1);
         account1.addTransaction(transaction2);
         account1.addTransaction(transaction3);
