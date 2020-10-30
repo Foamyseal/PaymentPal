@@ -1,0 +1,36 @@
+{
+    "balance": 300,
+    "name": "A1BM1412",
+    "transactions": [
+        {
+            "amount": 100,
+            "id": "D112934",
+            "type": "Deposit"
+        },
+        {
+            "amount": 100,
+            "id": "D112934",
+            "type": "Deposit"
+        },
+        {
+            "amount": 100,
+            "id": "D112934",
+            "type": "Deposit"
+        },
+        {
+            "amount": 50,
+            "id": "TW123",
+            "type": "Withdraw"
+        },
+        {
+            "amount": 50,
+            "id": "TW123",
+            "type": "Withdraw"
+        },
+        {
+            "amount": 100,
+            "id": "D112934",
+            "type": "Deposit"
+        }
+    ]
+}

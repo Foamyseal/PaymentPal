@@ -1,0 +1,17 @@
+{
+    "balance": 0,
+    "name": "Martin",
+    "id": "A1BM1412",
+    "transactions": [
+        {
+            "amount": 100,
+            "id": "1",
+            "type": "Deposit"
+        },
+        {
+            "amount": 50,
+            "id": "2",
+            "type": "Withdrawal"
+        }
+    ]
+}
