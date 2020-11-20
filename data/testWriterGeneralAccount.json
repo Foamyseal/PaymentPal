@@ -13,5 +13,15 @@
             "id": "2",
             "type": "Withdrawal"
         }
-    ]
+    ],
+    "deposits": [{
+        "amount": 100,
+        "id": "1",
+        "type": "Deposit"
+    }],
+    "withdrawals": [{
+        "amount": 50,
+        "id": "2",
+        "type": "Withdrawal"
+    }]
 }

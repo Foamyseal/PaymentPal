@@ -2,5 +2,7 @@
     "balance": 0,
     "name": "Martin",
     "id": "A1BM1412",
-    "transactions": []
+    "transactions": [],
+    "deposits": [],
+    "withdrawals": []
 }

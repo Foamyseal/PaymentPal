@@ -1,37 +1,71 @@
 {
-    "balance": 134967,
+    "balance": 10,
     "name": "Martin",
     "id": "A1BM1412",
     "transactions": [
         {
-            "amount": 12312,
-            "id": "D6394",
+            "amount": 123,
+            "id": "D3104",
             "type": "Deposit"
         },
         {
-            "amount": 234,
-            "id": "T7123",
-            "type": "Withdraw"
+            "amount": 2,
+            "id": "D361",
+            "type": "Deposit"
         },
         {
-            "amount": 123123,
-            "id": "D1092",
+            "amount": 12,
+            "id": "D2109",
             "type": "Deposit"
         },
         {
             "amount": 123,
-            "id": "T1035",
-            "type": "Withdraw"
+            "id": "T1253",
+            "type": "Withdrawal"
         },
         {
+            "amount": 2,
+            "id": "T1131",
+            "type": "Withdrawal"
+        },
+        {
+            "amount": 2,
+            "id": "T734",
+            "type": "Withdrawal"
+        }
+    ],
+    "deposits": [
+        {
             "amount": 123,
-            "id": "D3303",
+            "id": "D3104",
             "type": "Deposit"
         },
         {
-            "amount": 234,
-            "id": "T3171",
-            "type": "Withdraw"
+            "amount": 2,
+            "id": "D361",
+            "type": "Deposit"
+        },
+        {
+            "amount": 12,
+            "id": "D2109",
+            "type": "Deposit"
+        }
+    ],
+    "withdrawals": [
+        {
+            "amount": 123,
+            "id": "T1253",
+            "type": "Withdrawal"
+        },
+        {
+            "amount": 2,
+            "id": "T1131",
+            "type": "Withdrawal"
+        },
+        {
+            "amount": 2,
+            "id": "T734",
+            "type": "Withdrawal"
         }
     ]
 }

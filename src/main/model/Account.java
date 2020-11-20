@@ -73,7 +73,7 @@ public class Account implements Writeable {
     public ArrayList<Transaction> getDepositHistory() {
         ArrayList<Transaction> depositTransactions = new ArrayList<>();
         for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getTransactionType() == "Deposit") {
+            if (transactions.get(i).getTransactionType().equals("Deposit")) {
                 depositTransactions.add(transactions.get(i));
             }
         }
@@ -84,7 +84,7 @@ public class Account implements Writeable {
     public ArrayList<Transaction> getWithdrawalHistory() {
         ArrayList<Transaction> withdrawalTransactions = new ArrayList<>();
         for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getTransactionType() == "Withdrawal") {
+            if (transactions.get(i).getTransactionType().equals("Withdrawal")) {
                 withdrawalTransactions.add(transactions.get(i));
             }
         }
@@ -99,6 +99,8 @@ public class Account implements Writeable {
         json.put("id", accountID);
         json.put("balance", balance);
         json.put("transactions", transactionsToJson());
+        json.put("deposits", depositTransactionsToJson());
+        json.put("withdrawals", withdrawalTransactionsToJson());
         return json;
     }
 
@@ -107,6 +109,26 @@ public class Account implements Writeable {
         JSONArray jsonArray = new JSONArray();
 
         for (Transaction t : transactions) {
+            jsonArray.put(t.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: returns transactions in this account as a JSON array
+    private JSONArray depositTransactionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Transaction t : getDepositHistory()) {
+            jsonArray.put(t.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: returns transactions in this account as a JSON array
+    private JSONArray withdrawalTransactionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Transaction t : getWithdrawalHistory()) {
             jsonArray.put(t.toJson());
         }
         return jsonArray;

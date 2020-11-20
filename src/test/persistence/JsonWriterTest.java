@@ -39,6 +39,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals("Martin", a.getUserName());
             assertEquals("A1BM1412", a.getAccountID());
             assertEquals(0, a.getTransactionHistory().size());
+            assertEquals(0, a.getWithdrawalHistory().size());
+            assertEquals(0, a.getDepositHistory().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -60,7 +62,11 @@ public class JsonWriterTest extends JsonTest {
             assertEquals("Martin", a.getUserName());
             assertEquals("A1BM1412", a.getAccountID());
             List<Transaction> transactions = a.getTransactionHistory();
+            List<Transaction> depositTransactions = a.getDepositHistory();
+            List<Transaction> withdrawalTransactions = a.getWithdrawalHistory();
             assertEquals(2, transactions.size());
+            assertEquals(1, depositTransactions.size());
+            assertEquals(1, withdrawalTransactions.size());
             checkTransaction("1", 100, "Deposit");
             checkTransaction("2", 50, "Withdrawal");
 

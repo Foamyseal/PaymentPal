@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.scene.control.Alert;
 import model.Account;
 import model.Transaction;
 import persistence.JsonReader;
@@ -10,8 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
 
 import static java.lang.Integer.parseInt;
 
@@ -45,21 +49,25 @@ public class BankGUI extends JPanel  {
         transactionList = new JList(listModel);
         transactionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         transactionList.setSelectedIndex(0);
-        transactionList.setSize(600, 400);
+        transactionList.setPreferredSize(new Dimension(300, 50));
         transactionList.setVisibleRowCount(10);
         JScrollPane listScrollPane = new JScrollPane(transactionList);
         listScrollPane.setName("Previous Transaction List");
         listScrollPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        add(listScrollPane, BorderLayout.WEST);
+        listScrollPane.setSize(300,50);
+        add(listScrollPane, BorderLayout.CENTER);
     }
 
 
+    //EFFECTS: creates button panel
     private void runButtonPane() {
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane,
                 BoxLayout.PAGE_AXIS));
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
+        JLabel jlabel1 = new JLabel("Welcome to PaymentPal!");
+        JLabel jlabel2 = new JLabel("Created by Martin Au-yeung");
+        buttonPane.add(jlabel1);
+        buttonPane.add(jlabel2);
         buttonPane.add(Box.createHorizontalStrut(5));
         buttonPane.add(loadAccount());
         buttonPane.add(saveAccount());
@@ -69,12 +77,13 @@ public class BankGUI extends JPanel  {
         buttonPane.add(showWithdrawalsOnly());
         buttonPane.add(showAllTransactions());
         buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        add(buttonPane, BorderLayout.CENTER);
+        add(buttonPane, BorderLayout.EAST);
     }
 
+    //EFFECTS: displays transactionFrame UI
     private Component createTransaction() {
-        JButton createTransaction = new JButton("create transaction");
-        createTransaction.setActionCommand("create transaction");
+        JButton createTransaction = new JButton("Create new transaction");
+        createTransaction.setActionCommand("Create new transaction");
         createTransaction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,21 +93,19 @@ public class BankGUI extends JPanel  {
         return createTransaction;
     }
 
+    //EFFECTS: construct transactionFrame UI
     private void transactionFrame() {
-
         JFrame transactionFrame = new JFrame("New Transaction");
-
         transactionFrame.getContentPane().add(transactionPane());
-        transactionFrame.setSize(500, 300);
+        transactionFrame.setSize(500, 125);
         transactionFrame.setLocationRelativeTo(null);
         transactionFrame.setVisible(true);
-
     }
 
+    //EFFECTS: display deposit & withdrawal buttons and amount field in transactionFrame
     private Component transactionPane() {
         JPanel transactionPane = new JPanel();
         JLabel jlabel = new JLabel("Enter amount of credits to deposit or withdraw from your account:");
-
         transactionPane.add(jlabel);
         transactionPane.add(Box.createHorizontalStrut(5));
         transactionPane.add(new JSeparator(SwingConstants.VERTICAL));
@@ -106,14 +113,11 @@ public class BankGUI extends JPanel  {
         transactionPane.add(amount);
         transactionPane.add(depositButton());
         transactionPane.add(withdrawalButton());
-
         return transactionPane;
     }
 
-
-
     // MODIFIES: this
-    // EFFECTS: conducts a deposit transaction
+    // EFFECTS: click to deposit credits from account
     private Component depositButton() {
         JButton depositButton = new JButton(depositString);
         depositButton.setActionCommand(depositString);
@@ -138,7 +142,7 @@ public class BankGUI extends JPanel  {
         return depositButton;
     }
 
-    //Withdrawal Component
+    //EFFECTS: click to withdraw credits from account
     private Component withdrawalButton() {
         JButton withdrawButton = new JButton(withdrawString);
         withdrawButton.setActionCommand(withdrawString);
@@ -179,11 +183,13 @@ public class BankGUI extends JPanel  {
         listModel.addElement(t);
         amount.requestFocusInWindow();
         amount.setText("");
+        playSound("bling.wav");
     }
 
+    // MODIFIES: this
+    //EFFECTS: conducts a deposit transaction
     private void doDeposit() {
         int parsedAmount = parseInt(amount.getText());
-
         Transaction t = new Transaction("", 0, "");
         account.deposit(parsedAmount);
         account.addTransaction(t);
@@ -193,19 +199,17 @@ public class BankGUI extends JPanel  {
         listModel.addElement(t);
         amount.requestFocusInWindow();
         amount.setText("");
+        playSound("bling.wav");
     }
-
 
     // EFFECTS: saves the account to file
     private Component saveAccount() {
-        JButton saveButton = new JButton("save");
-        saveButton.setActionCommand("save");
+        JButton saveButton = new JButton("Save");
+        saveButton.setActionCommand("Save");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JButton saveButton = new JButton("save");
-                    saveButton.setActionCommand("save");
                     jsonWriter.open();
                     jsonWriter.write(account);
                     jsonWriter.close();
@@ -224,8 +228,8 @@ public class BankGUI extends JPanel  {
     // MODIFIES: this
     // EFFECTS: loads account from file
     private Component loadAccount() {
-        JButton loadButton = new JButton("load");
-        loadButton.setActionCommand("load");
+        JButton loadButton = new JButton("Load account");
+        loadButton.setActionCommand("Load account");
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -245,10 +249,10 @@ public class BankGUI extends JPanel  {
         return loadButton;
     }
 
-    // EFFECTS: prints balance of account to the screen
+    // EFFECTS: shows balance of account to the screen
     private Component showBalance() {
-        JButton showBalance = new JButton("Check Balance");
-        showBalance.setActionCommand("Check Balance");
+        JButton showBalance = new JButton("Check account balance");
+        showBalance.setActionCommand("Check account balance");
         showBalance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -259,6 +263,8 @@ public class BankGUI extends JPanel  {
         return showBalance;
     }
 
+    // MODIFIES: this
+    //EFFECTS: show deposit type transactions only
     private Component showDepositsOnly() {
         JButton showDepositsOnly = new JButton("Show deposits only");
         showDepositsOnly.setActionCommand("Show deposits only");
@@ -274,7 +280,8 @@ public class BankGUI extends JPanel  {
         return showDepositsOnly;
     }
 
-
+    // MODIFIES: this
+    //EFFECTS: show withdrawal type transactions only
     private Component showWithdrawalsOnly() {
         JButton showWithdrawalsOnly = new JButton("Show withdrawals only");
         showWithdrawalsOnly.setActionCommand("Show Withdrawal only");
@@ -290,6 +297,8 @@ public class BankGUI extends JPanel  {
         return showWithdrawalsOnly;
     }
 
+    // MODIFIES: this
+    //EFFECTS: show All transactions
     private Component showAllTransactions() {
         JButton showAllTransactions = new JButton("Show all transactions");
         showAllTransactions.setActionCommand("Show all transactions");
@@ -305,27 +314,35 @@ public class BankGUI extends JPanel  {
         return showAllTransactions;
     }
 
+    //EFFECTS: plays chaching sound
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception exception) {
+            System.out.println("sound error");
+            exception.printStackTrace();
+        }
+    }
+
 
     private static void createAndShowGUI() {
-        //Create and set up the window.
         JFrame frame = new JFrame("PaymentPal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Create and set up the content pane.
         JComponent newContentPane = new BankGUI();
         newContentPane.setOpaque(true);
         frame.setContentPane(newContentPane);
-        frame.setSize(500, 300);
+        frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
 
-        //Display the window.
-        frame.pack();
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
