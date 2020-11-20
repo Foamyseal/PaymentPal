@@ -21,12 +21,12 @@ that you won't win this game") to foster social connections without the implicat
 - As a user, I want to be able to save the amount of balance in my bank account. 
 - As a user, I want to be able to load my bank account with previous transactions and balance. 
 
-## Upcoming User Stories
-- As a user, I want to create my own bank account
-- As a user, I want to set the name of my bank account
-- As a user, I want to set a password for my bank account
-- As a user, I want to login to my bank account with my password
-- As a user, I want to transfer (add money) to other people's bank account using this bank account system
+## User Stories (Phase 3)
+- As a user, I want to see the list of transactions I make. 
+- As a user, I want to only see deposit transactions I made.
+- As a user, I want to only see withdrawal transactions I made.
+- As a user, I want to see the amount of credits currently in my account. 
+- As a user, I want to be able to load and save the account. 
 
 
 *Additional Information*: 

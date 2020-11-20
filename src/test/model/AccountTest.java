@@ -91,5 +91,35 @@ public class AccountTest {
         testTransaction.add(transaction3);
         assertEquals(testTransaction, account1.getTransactionHistory());
     }
+
+    @Test
+    void testGetDepositOnly() {
+        Transaction transaction1 = new Transaction("", 0, "Deposit");
+        Transaction transaction2 = new Transaction("", 0, "Deposit");
+        Transaction transaction3 = new Transaction("", 0, "Deposit");
+        account1.addTransaction(transaction1);
+        account1.addTransaction(transaction2);
+        account1.addTransaction(transaction3);
+        ArrayList<Transaction> testTransaction = new ArrayList<>();
+        testTransaction.add(transaction1);
+        testTransaction.add(transaction2);
+        testTransaction.add(transaction3);
+        assertEquals(testTransaction, account1.getDepositHistory());
+    }
+
+    @Test
+    void testGetWithdrawalsOnly() {
+        Transaction transaction1 = new Transaction("", 0, "Withdrawal");
+        Transaction transaction2 = new Transaction("", 0, "Withdrawal");
+        Transaction transaction3 = new Transaction("", 0, "Withdrawal");
+        account1.addTransaction(transaction1);
+        account1.addTransaction(transaction2);
+        account1.addTransaction(transaction3);
+        ArrayList<Transaction> testTransaction = new ArrayList<>();
+        testTransaction.add(transaction1);
+        testTransaction.add(transaction2);
+        testTransaction.add(transaction3);
+        assertEquals(testTransaction, account1.getWithdrawalHistory());
+    }
 }
 

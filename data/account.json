@@ -1,36 +1,37 @@
 {
-    "balance": 300,
-    "name": "A1BM1412",
+    "balance": 134967,
+    "name": "Martin",
+    "id": "A1BM1412",
     "transactions": [
         {
-            "amount": 100,
-            "id": "D112934",
+            "amount": 12312,
+            "id": "D6394",
             "type": "Deposit"
         },
         {
-            "amount": 100,
-            "id": "D112934",
-            "type": "Deposit"
-        },
-        {
-            "amount": 100,
-            "id": "D112934",
-            "type": "Deposit"
-        },
-        {
-            "amount": 50,
-            "id": "TW123",
+            "amount": 234,
+            "id": "T7123",
             "type": "Withdraw"
         },
         {
-            "amount": 50,
-            "id": "TW123",
+            "amount": 123123,
+            "id": "D1092",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "T1035",
             "type": "Withdraw"
         },
         {
-            "amount": 100,
-            "id": "D112934",
+            "amount": 123,
+            "id": "D3303",
             "type": "Deposit"
+        },
+        {
+            "amount": 234,
+            "id": "T3171",
+            "type": "Withdraw"
         }
     ]
 }

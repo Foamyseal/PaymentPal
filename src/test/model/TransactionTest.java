@@ -46,7 +46,7 @@ public class TransactionTest {
         transaction1.setTransactionId("D1");
         transaction1.setTransactionType("Deposit");
         transaction1.setTransactionAmount(100);
-        assertTrue(transaction1.toString().contains("|Transaction Id: D1 Amount: 100 Type: Deposit|"));
+        assertTrue(transaction1.toString().contains("Transaction Id: D1 Amount: $100 Type: Deposit"));
     }
 
 }

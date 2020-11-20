@@ -46,6 +46,7 @@ public class JsonReader {
         return a;
     }
 
+
     // MODIFIES: a
     // EFFECTS: parses transactions from JSON object and adds them to account
     private void addTransactions(Account a, JSONObject jsonObject) {

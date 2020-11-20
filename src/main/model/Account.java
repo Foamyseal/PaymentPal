@@ -69,6 +69,29 @@ public class Account implements Writeable {
         return transactions;
     }
 
+    //EFFECTS: return only deposit transactions
+    public ArrayList<Transaction> getDepositHistory() {
+        ArrayList<Transaction> depositTransactions = new ArrayList<>();
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getTransactionType() == "Deposit") {
+                depositTransactions.add(transactions.get(i));
+            }
+        }
+        return depositTransactions;
+    }
+
+    //EFFECTS: return only withdrawal transactions
+    public ArrayList<Transaction> getWithdrawalHistory() {
+        ArrayList<Transaction> withdrawalTransactions = new ArrayList<>();
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getTransactionType() == "Withdrawal") {
+                withdrawalTransactions.add(transactions.get(i));
+            }
+        }
+        return withdrawalTransactions;
+    }
+
+    //EFFECTS: return Account as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

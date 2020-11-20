@@ -55,12 +55,12 @@ public class Transaction implements Writeable  {
     //EFFECTS: turns transaction to string
     @Override
     public String toString() {
-        return "|Transaction Id: " + this.getTransactionId() + " Amount: " + this.getTransactionAmount() + " Type: "
-                + this.getTransactionType() + "|";
+        return "Transaction Id: " + this.getTransactionId() + " Amount: $" + this.getTransactionAmount() + " Type: "
+                + this.getTransactionType();
     }
 
     //from JsonSerializationDemo
-
+    //EFFECTS: return Transaction as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
