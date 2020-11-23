@@ -1,6 +1,7 @@
 package model;
 
 
+import model.exceptions.NoBalanceException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writeable;
@@ -51,10 +52,11 @@ public class Account implements Writeable {
     //REQUIRES: amount > 0
     //MODIFIES: this
     //EFFECTS: subtract amount to balance if there is sufficient balance in account
-    public int withdraw(int amount) {
-        if (getBalance() > amount) {
-            balance = getBalance() - amount;
+    public int withdraw(int amount) throws NoBalanceException {
+        if (getBalance() < amount) {
+            throw new NoBalanceException("Not enough balance in account!");
         }
+        balance = getBalance() - amount;
         return balance;
     }
 

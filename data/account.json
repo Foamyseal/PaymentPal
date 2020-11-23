@@ -1,70 +1,110 @@
 {
-    "balance": 10,
+    "balance": 255,
     "name": "Martin",
     "id": "A1BM1412",
     "transactions": [
         {
             "amount": 123,
-            "id": "D3104",
-            "type": "Deposit"
-        },
-        {
-            "amount": 2,
-            "id": "D361",
-            "type": "Deposit"
-        },
-        {
-            "amount": 12,
-            "id": "D2109",
+            "id": "D4478",
             "type": "Deposit"
         },
         {
             "amount": 123,
-            "id": "T1253",
+            "id": "T7164",
             "type": "Withdrawal"
         },
         {
-            "amount": 2,
-            "id": "T1131",
-            "type": "Withdrawal"
+            "amount": 123,
+            "id": "D6863",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "D7732",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "D6197",
+            "type": "Deposit"
+        },
+        {
+            "amount": 13,
+            "id": "D6525",
+            "type": "Deposit"
         },
         {
             "amount": 2,
-            "id": "T734",
+            "id": "D2004",
+            "type": "Deposit"
+        },
+        {
+            "amount": 3,
+            "id": "D7793",
+            "type": "Deposit"
+        },
+        {
+            "amount": 232,
+            "id": "T915",
+            "type": "Withdrawal"
+        },
+        {
+            "amount": 23,
+            "id": "T4945",
             "type": "Withdrawal"
         }
     ],
     "deposits": [
         {
             "amount": 123,
-            "id": "D3104",
+            "id": "D4478",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "D6863",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "D7732",
+            "type": "Deposit"
+        },
+        {
+            "amount": 123,
+            "id": "D6197",
+            "type": "Deposit"
+        },
+        {
+            "amount": 13,
+            "id": "D6525",
             "type": "Deposit"
         },
         {
             "amount": 2,
-            "id": "D361",
+            "id": "D2004",
             "type": "Deposit"
         },
         {
-            "amount": 12,
-            "id": "D2109",
+            "amount": 3,
+            "id": "D7793",
             "type": "Deposit"
         }
     ],
     "withdrawals": [
         {
             "amount": 123,
-            "id": "T1253",
+            "id": "T7164",
             "type": "Withdrawal"
         },
         {
-            "amount": 2,
-            "id": "T1131",
+            "amount": 232,
+            "id": "T915",
             "type": "Withdrawal"
         },
         {
-            "amount": 2,
-            "id": "T734",
+            "amount": 23,
+            "id": "T4945",
             "type": "Withdrawal"
         }
     ]

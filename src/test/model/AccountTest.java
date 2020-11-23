@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoBalanceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,15 +37,24 @@ public class AccountTest {
     }
 
     @Test
-    void testSingleWithdrawal(){
-        account2.withdraw(10);
-        assertEquals(990, account2.getBalance());
+    void testSingleWithdrawal() {
+        try {
+            account2.withdraw(10);
+            assertEquals(990, account2.getBalance());
+        } catch (NoBalanceException noBalanceException) {
+            fail("Not supposed to throw exception");
+        }
     }
 
     @Test
-    void testWithdrawalFailure(){
-        account4.withdraw(100000);
-        assertEquals(100, account4.getBalance());
+    void testWithdrawalFailure() {
+        try {
+            account4.withdraw(100000);
+            fail("should've thrown exception");
+        } catch (NoBalanceException noBalanceException) {
+            // caught as intended
+            assertEquals(100, account4.getBalance());
+        }
     }
 
     @Test
@@ -58,13 +68,17 @@ public class AccountTest {
     }
 
     @Test
-    void testConsecutiveWithdrawals() {
-        account4.withdraw(10);
-        assertEquals(90, account4.getBalance());
-        account4.withdraw(5);
-        assertEquals(85, account4.getBalance());
-        account4.withdraw(1);
-        assertEquals(84, account4.getBalance());
+    void testConsecutiveWithdrawals()  {
+        try {
+            account4.withdraw(10);
+            assertEquals(90, account4.getBalance());
+            account4.withdraw(5);
+            assertEquals(85, account4.getBalance());
+            account4.withdraw(1);
+            assertEquals(84, account4.getBalance());
+        } catch (NoBalanceException noBalanceException) {
+            fail("exception thrown unintentionally!");
+        }
     }
 
     @Test

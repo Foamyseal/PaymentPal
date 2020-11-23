@@ -2,6 +2,7 @@ package ui;
 
 import model.Account;
 import model.Transaction;
+import model.exceptions.NoBalanceException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -19,12 +20,12 @@ public class Bank {
 
 
     // Run Bank
-    public Bank() throws FileNotFoundException {
+    public Bank() throws FileNotFoundException, NoBalanceException {
         runBank();
     }
 
     //Constructor comment:
-    private void runBank() {
+    private void runBank() throws NoBalanceException {
         boolean keepGoing = true;
         String command = null;
 
@@ -46,7 +47,7 @@ public class Bank {
 
     // MODIFIES: this
     // EFFECTS: processes user command
-    private void processCommand(String command) {
+    private void processCommand(String command) throws NoBalanceException {
         if (command.equals("d")) {
             doDeposit();
         } else if (command.equals("w")) {
@@ -106,7 +107,7 @@ public class Bank {
 
     // MODIFIES: this
     // EFFECTS: conducts a withdraw transaction
-    private void doWithdrawal() {
+    private void doWithdrawal() throws NoBalanceException {
         System.out.print("Enter amount to withdraw: $");
         int amount = input.nextInt();
 

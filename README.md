@@ -28,6 +28,8 @@ that you won't win this game") to foster social connections without the implicat
 - As a user, I want to see the amount of credits currently in my account. 
 - As a user, I want to be able to load and save the account. 
 
+## Phase 4: Task 2
+- Chose to implement first item: "Test and design a class in your model package so that is robust"
 
 *Additional Information*: 
 

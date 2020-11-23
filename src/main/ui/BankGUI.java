@@ -2,13 +2,12 @@ package ui;
 
 import model.Account;
 import model.Transaction;
+import model.exceptions.NoBalanceException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,12 +20,11 @@ import static java.lang.Integer.parseInt;
 
 public class BankGUI extends JPanel  {
 
-    private JList<String> transactionList;
     private Account account;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
-    private JTextField amount;
-    private DefaultListModel<Transaction> listModel;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
+    private final JTextField amount;
+    private final DefaultListModel<Transaction> listModel;
 
     private static final String depositString = "Deposit";
     private static final String withdrawString = "Withdraw";
@@ -46,11 +44,11 @@ public class BankGUI extends JPanel  {
 
     //EFFECTS: create list of transactions and place in scroll pane.
     private void transactionListGUI() {
-        transactionList = new JList(listModel);
+        JList<Transaction> transactionList = new JList<>(listModel);
         transactionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         transactionList.setSelectedIndex(0);
         transactionList.setPreferredSize(new Dimension(300, 50));
-        transactionList.setVisibleRowCount(10);
+        transactionList.setVisibleRowCount(50);
         JScrollPane listScrollPane = new JScrollPane(transactionList);
         listScrollPane.setName("Previous Transaction List");
         listScrollPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -84,12 +82,7 @@ public class BankGUI extends JPanel  {
     private Component createTransaction() {
         JButton createTransaction = new JButton("Create new transaction");
         createTransaction.setActionCommand("Create new transaction");
-        createTransaction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                transactionFrame();
-            }
-        });
+        createTransaction.addActionListener(e -> transactionFrame());
         return createTransaction;
     }
 
@@ -100,6 +93,7 @@ public class BankGUI extends JPanel  {
         transactionFrame.setSize(500, 125);
         transactionFrame.setLocationRelativeTo(null);
         transactionFrame.setVisible(true);
+        transactionFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     //EFFECTS: display deposit & withdrawal buttons and amount field in transactionFrame
@@ -121,22 +115,19 @@ public class BankGUI extends JPanel  {
     private Component depositButton() {
         JButton depositButton = new JButton(depositString);
         depositButton.setActionCommand(depositString);
-        depositButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    int parsedAmount = parseInt(amount.getText());
-                    if (parsedAmount >= 0) {
-                        doDeposit();
-                    } else {
-                        Toolkit.getDefaultToolkit().beep();
-                        JOptionPane.showMessageDialog(null,
-                                "error, please enter positive integer");
-                    }
-                } catch (NumberFormatException exception) {
+        depositButton.addActionListener(e -> {
+            try {
+                int parsedAmount = parseInt(amount.getText());
+                if (parsedAmount >= 0) {
+                    doDeposit();
+                } else {
                     Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "ERROR: Please enter an integer value!");
+                    JOptionPane.showMessageDialog(null,
+                            "error, please enter positive integer");
                 }
+            } catch (NumberFormatException exception) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "ERROR: Please enter an integer value!");
             }
         });
         return depositButton;
@@ -146,24 +137,21 @@ public class BankGUI extends JPanel  {
     private Component withdrawalButton() {
         JButton withdrawButton = new JButton(withdrawString);
         withdrawButton.setActionCommand(withdrawString);
-        withdrawButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try  {
-                    if (parseInt(amount.getText()) < 0) {
-                        Toolkit.getDefaultToolkit().beep();
-                        JOptionPane.showMessageDialog(null,
-                                "error, please enter a positive integer");
-                    } else if (account.getBalance() < parseInt(amount.getText())) {
-                        Toolkit.getDefaultToolkit().beep();
-                        JOptionPane.showMessageDialog(null, "Not enough Balance in account!");
-                    } else {
-                        doWithdrawal();
-                    }
-                } catch (NumberFormatException exception) {
+        withdrawButton.addActionListener(e -> {
+            try  {
+                if (parseInt(amount.getText()) < 0) {
                     Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "ERROR: Please enter an integer!");
+                    JOptionPane.showMessageDialog(null,
+                            "error, please enter a positive integer");
+                } else {
+                    doWithdrawal();
                 }
+            } catch (NumberFormatException exception) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "ERROR: Please enter an integer!");
+            } catch (NoBalanceException noBalanceException) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Not enough Balance in account!");
             }
         });
         return withdrawButton;
@@ -171,7 +159,7 @@ public class BankGUI extends JPanel  {
 
     // MODIFIES: this
     // EFFECTS: conducts a withdraw transaction
-    private void doWithdrawal() {
+    private void doWithdrawal() throws NoBalanceException {
         int parsedAmount = parseInt(amount.getText());
 
         Transaction t = new Transaction("", 0, "");
@@ -206,19 +194,16 @@ public class BankGUI extends JPanel  {
     private Component saveAccount() {
         JButton saveButton = new JButton("Save");
         saveButton.setActionCommand("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    jsonWriter.open();
-                    jsonWriter.write(account);
-                    jsonWriter.close();
-                    JOptionPane.showMessageDialog(null, "Saved "
-                            + account.getUserName() + " to " + JSON_STORE);
-                } catch (FileNotFoundException exception) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Unable to write to file: " + JSON_STORE);
-                }
+        saveButton.addActionListener(e -> {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(account);
+                jsonWriter.close();
+                JOptionPane.showMessageDialog(null, "Saved "
+                        + account.getUserName() + " to " + JSON_STORE);
+            } catch (FileNotFoundException exception) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Unable to write to file: " + JSON_STORE);
             }
         });
         return saveButton;
@@ -230,20 +215,17 @@ public class BankGUI extends JPanel  {
     private Component loadAccount() {
         JButton loadButton = new JButton("Load account");
         loadButton.setActionCommand("Load account");
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    account = jsonReader.read();
-                    for (int i = 0; i < account.getTransactionHistory().size(); i++) {
-                        listModel.addElement(account.getTransactionHistory().get(i));
-                    }
-                    JOptionPane.showMessageDialog(null, "Loaded "
-                            + account.getUserName() + " from " + JSON_STORE);
-                } catch (IOException exception) {
-                    Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE);
+        loadButton.addActionListener(e -> {
+            try {
+                account = jsonReader.read();
+                for (int i = 0; i < account.getTransactionHistory().size(); i++) {
+                    listModel.addElement(account.getTransactionHistory().get(i));
                 }
+                JOptionPane.showMessageDialog(null, "Loaded "
+                        + account.getUserName() + " from " + JSON_STORE);
+            } catch (IOException exception) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE);
             }
         });
         return loadButton;
@@ -253,12 +235,9 @@ public class BankGUI extends JPanel  {
     private Component showBalance() {
         JButton showBalance = new JButton("Check account balance");
         showBalance.setActionCommand("Check account balance");
-        showBalance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(null, "Account Balance = $" + account.getBalance());
-            }
+        showBalance.addActionListener(e -> {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Account Balance = $" + account.getBalance());
         });
         return showBalance;
     }
@@ -268,13 +247,10 @@ public class BankGUI extends JPanel  {
     private Component showDepositsOnly() {
         JButton showDepositsOnly = new JButton("Show deposits only");
         showDepositsOnly.setActionCommand("Show deposits only");
-        showDepositsOnly.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.removeAllElements();
-                for (int i = 0; i < account.getDepositHistory().size(); i++) {
-                    listModel.addElement(account.getDepositHistory().get(i));
-                }
+        showDepositsOnly.addActionListener(e -> {
+            listModel.removeAllElements();
+            for (int i = 0; i < account.getDepositHistory().size(); i++) {
+                listModel.addElement(account.getDepositHistory().get(i));
             }
         });
         return showDepositsOnly;
@@ -285,30 +261,24 @@ public class BankGUI extends JPanel  {
     private Component showWithdrawalsOnly() {
         JButton showWithdrawalsOnly = new JButton("Show withdrawals only");
         showWithdrawalsOnly.setActionCommand("Show Withdrawal only");
-        showWithdrawalsOnly.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.removeAllElements();
-                for (int i = 0; i < account.getWithdrawalHistory().size(); i++) {
-                    listModel.addElement(account.getWithdrawalHistory().get(i));
-                }
+        showWithdrawalsOnly.addActionListener(e -> {
+            listModel.removeAllElements();
+            for (int i = 0; i < account.getWithdrawalHistory().size(); i++) {
+                listModel.addElement(account.getWithdrawalHistory().get(i));
             }
         });
         return showWithdrawalsOnly;
     }
 
-    // MODIFIES: this
+    //MODIFIES: this
     //EFFECTS: show All transactions
     private Component showAllTransactions() {
         JButton showAllTransactions = new JButton("Show all transactions");
         showAllTransactions.setActionCommand("Show all transactions");
-        showAllTransactions.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.removeAllElements();
-                for (int i = 0; i < account.getTransactionHistory().size(); i++) {
-                    listModel.addElement(account.getTransactionHistory().get(i));
-                }
+        showAllTransactions.addActionListener(e -> {
+            listModel.removeAllElements();
+            for (int i = 0; i < account.getTransactionHistory().size(); i++) {
+                listModel.addElement(account.getTransactionHistory().get(i));
             }
         });
         return showAllTransactions;
@@ -343,11 +313,7 @@ public class BankGUI extends JPanel  {
     }
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(BankGUI::createAndShowGUI);
     }
 
 
