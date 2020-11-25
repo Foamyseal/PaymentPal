@@ -49,7 +49,6 @@ public class Account implements Writeable {
         return balance;
     }
 
-    //REQUIRES: amount > 0
     //MODIFIES: this
     //EFFECTS: subtract amount to balance if there is sufficient balance in account
     public int withdraw(int amount) throws NoBalanceException {

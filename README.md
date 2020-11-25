@@ -29,11 +29,16 @@ that you won't win this game") to foster social connections without the implicat
 - As a user, I want to be able to load and save the account. 
 
 ## Phase 4: Task 2
-- Chose to implement first item: "Test and design a class in your model package so that is robust"
+Chose to implement first item: "Test and design a class in your model package so that is robust" 
+You must have at least one method that throws a checked exception. (Chose to do with Withdrawal Method)
 
-*Additional Information*: 
 
-https://www.notion.so/CPSC-210-969721fcc7f74254a991a98187595284
+##Phase 4: Task 3 
+I would've not done a seperate Main file that calls the Console UI in the ui package, and instead just have it 
+implemented within the Bank class (UI) itself like I have done with the BankGUI class. 
+This would eliminate the need for a class that is just standalone by itself that has no associations 
+with any other class. Otherwise, I wouldn't change my design structure. 
+
 
 
 

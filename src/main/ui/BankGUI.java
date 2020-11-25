@@ -123,7 +123,7 @@ public class BankGUI extends JPanel  {
                 } else {
                     Toolkit.getDefaultToolkit().beep();
                     JOptionPane.showMessageDialog(null,
-                            "error, please enter positive integer");
+                            "ERROR: please enter positive integer");
                 }
             } catch (NumberFormatException exception) {
                 Toolkit.getDefaultToolkit().beep();
