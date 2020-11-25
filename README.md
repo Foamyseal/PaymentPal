@@ -33,7 +33,7 @@ Chose to implement first item: "Test and design a class in your model package so
 You must have at least one method that throws a checked exception. (Chose to do with Withdrawal Method)
 
 
-##Phase 4: Task 3 
+## Phase 4: Task 3 
 I would've not done a seperate Main file that calls the Console UI in the ui package, and instead just have it 
 implemented within the Bank class (UI) itself like I have done with the BankGUI class. 
 This would eliminate the need for a class that is just standalone by itself that has no associations 
