@@ -171,7 +171,7 @@ public class BankGUI extends JPanel  {
         listModel.addElement(t);
         amount.requestFocusInWindow();
         amount.setText("");
-        playSound("bling.wav");
+        playSound("data/bling.wav");
     }
 
     // MODIFIES: this
@@ -187,7 +187,7 @@ public class BankGUI extends JPanel  {
         listModel.addElement(t);
         amount.requestFocusInWindow();
         amount.setText("");
-        playSound("bling.wav");
+        playSound("data/bling.wav");
     }
 
     // EFFECTS: saves the account to file
